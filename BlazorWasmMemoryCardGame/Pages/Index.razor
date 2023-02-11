@@ -1,0 +1,34 @@
+﻿@page "/"
+@inject IJSRuntime _JsRuntime
+
+<PageTitle>Index</PageTitle>
+@if (startGame)
+{
+    <div class="wrapper">
+        <div class="stats-container">
+            <div id="moves-count"></div>
+            <div id="time"></div>
+        </div>
+        <div class="game-container" style="grid-template-columns: repeat(4, auto);">
+            @foreach (int i in intArr)
+            {
+                var item = lstMemoryCard[i];
+                <div class="card-container" data-card-value="@item.name" @onclick="() => CardClick(i, item.name)" id="divCard@(i)"
+                     @ref="_elementReferences[i]">
+                    <div class="card-before">?</div>
+                    <div class="card-after">
+                        <img src="img/@(item.image)" class="image"/>
+                    </div>
+                </div>
+            }
+        </div>
+        <button id="stop" class="hide">Stop Game</button>
+    </div>
+}
+else
+{
+    <div class="controls-container">
+        <p id="result"></p>
+        <button id="start" @onclick="Start">Start Game</button>
+    </div>
+}
